@@ -46,11 +46,13 @@ Quên phím? Bấm `Prefix + ?` để xem toàn bộ.
 |---|---|
 | `Prefix + \|` | Chia **dọc** (trái / phải) |
 | `Prefix + -` | Chia **ngang** (trên / dưới) |
-| **`Alt + h/j/k/l`** | Chuyển pane — **không cần prefix** |
-| **`Alt + ←/↓/↑/→`** | Chuyển pane — **không cần prefix** |
+| **`Ctrl + h/j/k/l`** | **Chuyển pane — và xuyên luôn sang cửa sổ Neovim** (xem mục dưới) |
+| `Alt + h/j/k/l` | Chuyển pane — không cần prefix |
+| `Alt + ←/↓/↑/→` | Chuyển pane — không cần prefix |
 | `Prefix + h/j/k/l` | Chuyển pane (có prefix) |
 | `Prefix + H/J/K/L` | Đổi kích thước, bước 5 ô |
-| `Prefix + Ctrl+h/j/k/l` | Đổi kích thước, bước 1 ô |
+| `Prefix + Ctrl+←/↓/↑/→` | Đổi kích thước, bước 1 ô |
+| `Prefix + Ctrl+l` | **Xoá màn hình** (vì `Ctrl+l` đã dùng để chuyển pane) |
 | **`Prefix + m`** | **Phóng to / thu nhỏ** pane |
 | `Prefix + x` | Đóng pane |
 | `Prefix + space` | Đổi kiểu bố cục |
@@ -60,6 +62,34 @@ Quên phím? Bấm `Prefix + ?` để xem toàn bộ.
 | `Prefix + z` | Zoom (phím gốc của tmux, vẫn dùng được) |
 
 Kéo viền pane bằng chuột cũng đổi kích thước được.
+
+### Điều hướng liền mạch với Neovim
+
+`Ctrl + h/j/k/l` nhảy sang ô bên cạnh, **không phân biệt** đó là pane tmux hay cửa sổ
+Neovim. Đang ở cửa sổ nvim ngoài cùng bên trái mà bấm `Ctrl+h` thì nhảy thẳng sang
+pane tmux bên cạnh — một bộ phím cho cả hai.
+
+Cần cả hai phía mới chạy:
+
+| Phía | Cần gì |
+|---|---|
+| Neovim | plugin `christoomey/vim-tmux-navigator` — có sẵn trong [nvim-config](https://github.com/Gin111191/nvim-config) |
+| tmux | mục "Điều hướng liền mạch với Neovim" trong `tmux.conf` |
+
+Cách hoạt động: tmux soi tiến trình đang chạy trong pane. Là `vim`/`nvim` thì **gửi phím
+vào** cho nó tự xử lý; không phải thì tmux tự chuyển pane.
+
+> **Đánh đổi:** `Ctrl+l` vốn là "xoá màn hình" của shell, giờ dùng để chuyển pane.
+> Dùng `Prefix + Ctrl+l` để xoá màn hình.
+
+Bảng phím tương ứng bên Neovim:
+
+| Động tác | tmux | Neovim |
+|---|---|---|
+| Chuyển ô | `Ctrl + h/j/k/l` | `Ctrl + h/j/k/l` (cùng phím) |
+| Chia dọc | `Prefix + \|` | `Space + \|` |
+| Chia ngang | `Prefix + -` | `Space + -` |
+| Đổi kích thước | `Prefix + H/J/K/L` | `Space + H/J/K/L` |
 
 ---
 

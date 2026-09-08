@@ -17,6 +17,7 @@ Chỉ một file `tmux.conf` duy nhất.
 ## Có gì
 
 - **Prefix vẫn là `Ctrl+b`** — không đổi sang `Ctrl+a` để khỏi đè lên phím "về đầu dòng" của shell
+- **`Ctrl + h/j/k/l` chuyển ô liền mạch với Neovim** — cùng một bộ phím cho pane tmux và cửa sổ nvim
 - **`Alt + h/j/k/l`** chuyển pane, **`Alt + 1..9`** nhảy cửa sổ — không cần bấm prefix
 - **Copy/paste kiểu vim**, có cả bôi khối chữ nhật (`Ctrl+v`)
 - **Clipboard hai lớp chạy song song** — OSC 52 (qua terminal, dùng được cả khi SSH) **và** lệnh native của hệ điều hành (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) tự nhận diện
