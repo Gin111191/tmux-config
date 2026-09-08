@@ -19,7 +19,7 @@ Chỉ một file `tmux.conf` duy nhất.
 - **Prefix vẫn là `Ctrl+b`** — không đổi sang `Ctrl+a` để khỏi đè lên phím "về đầu dòng" của shell
 - **`Alt + h/j/k/l`** chuyển pane, **`Alt + 1..9`** nhảy cửa sổ — không cần bấm prefix
 - **Copy/paste kiểu vim**, có cả bôi khối chữ nhật (`Ctrl+v`)
-- **Clipboard tự nhận diện hệ điều hành** — `pbcopy` / `wl-copy` / `xclip` / `clip.exe`, mặc định lùi về OSC 52 (chạy qua cả SSH)
+- **Clipboard hai lớp chạy song song** — OSC 52 (qua terminal, dùng được cả khi SSH) **và** lệnh native của hệ điều hành (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) tự nhận diện
 - **Cửa sổ đang mở hiện 2 cấp thư mục cuối** thay vì chỉ "zsh"
 - **Thanh status đổi màu khi bấm prefix** — biết ngay tmux đang chờ phím
 - Giao diện **Tokyo Night Moon**
@@ -155,7 +155,7 @@ Dựa trên [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw). Nh�
 | Prefix | `Ctrl+a` | **`Ctrl+b`** (mặc định) |
 | Biến màu | Rò rỉ 13 biến vào môi trường mọi shell | Dùng `%hidden`, **không rò rỉ** |
 | Đường dẫn trên status | `#(echo ... \| rev \| cut \| rev)` — 3 tiến trình mỗi lần vẽ, vỡ khi tên thư mục có dấu `'` | Regex native tmux — **0 tiến trình**, không vỡ |
-| Clipboard | Chỉ OSC 52 | Tự nhận diện `pbcopy`/`wl-copy`/`xclip`/`clip.exe`, lùi về OSC 52 |
+| Clipboard | Chỉ OSC 52 | OSC 52 **cộng thêm** lệnh native tự nhận diện (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) — hai lớp chạy song song |
 | Đường dẫn reload | Cứng `$HOME/.config/tmux/tmux.conf` | Thử cả `~/.config/tmux/` và `~/.tmux.conf` |
 | `default-shell` | — | Không đặt, để tmux tự dùng `$SHELL` (tránh hỏng khi zsh ở `/usr/bin`) |
 | `escape-time` | 10 (mặc định) | **0** — bỏ trễ phím ESC trong Neovim |
