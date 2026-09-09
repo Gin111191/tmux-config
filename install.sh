@@ -97,7 +97,7 @@ fi
 
 say ""
 say "Done. Open tmux and try:"
-say "  Ctrl+Space  |     split the pane vertically"
-say "  Ctrl+Space  -     split the pane horizontally"
+say "  Ctrl+b  |     split the pane vertically"
+say "  Ctrl+b  -     split the pane horizontally"
 say "  Alt+1..9      jump to a window"
-say "  Ctrl+Space  ?     list every key binding"
+say "  Ctrl+b  ?     list every key binding"
