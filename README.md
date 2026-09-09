@@ -154,7 +154,7 @@ On a machine without the file the line is a no-op, so it is safe everywhere.
 #### Example
 
 Anything machine-specific: a different status bar, a key that only makes sense on one
-box, an `@option` you want to override before the plugins load.
+box, an option you want set on this machine and nowhere else.
 
 ---
 
