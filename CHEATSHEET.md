@@ -49,9 +49,8 @@ Forgotten a key? Press `Prefix + ?` to see them all.
 | **`Ctrl + h/j/k/l`** | **Switch pane — and straight on into a Neovim window** (see below) |
 | `Alt + h/j/k/l` | Switch pane — no prefix needed |
 | `Alt + ←/↓/↑/→` | Switch pane — no prefix needed |
-| `Prefix + h/j/k/l` | Switch pane (with the prefix) |
-| `Prefix + H/J/K/L` | Resize, 5 cells at a time |
-| `Prefix + Ctrl+←/↓/↑/→` | Resize, 1 cell at a time |
+| `Prefix + h/j/k/l` | **Resize** by 5 — hold the prefix and repeat (same fingers as Neovim) |
+| `Prefix + Ctrl+←/↓/↑/→` | Resize by 1 ⚠️ prefixed, unlike Neovim's bare `Ctrl+arrow` |
 | `Prefix + Ctrl+l` | **Clear the screen** (because `Ctrl+l` is taken for switching pane) |
 | **`Prefix + m`** | **Zoom** the pane in / out |
 | `Prefix + x` | Close the pane |
@@ -62,6 +61,14 @@ Forgotten a key? Press `Prefix + ?` to see them all.
 | `Prefix + z` | Zoom (tmux's own key, still works) |
 
 Dragging a pane border with the mouse resizes it too.
+
+`Prefix + h/j/k/l` used to **select** a pane. It was the third way to do that — `Alt+hjkl` and
+`Ctrl+hjkl` both already move between panes with no prefix — so the keys went to resizing, matching
+Neovim. `Prefix + L` is no longer a resize key and falls back to tmux's own **switch to last
+session**.
+
+⚠️ The 1-cell resize cannot match Neovim. Neovim uses a **bare** `Ctrl+arrow`; if tmux bound the
+bare key it would swallow it and Neovim would never see it. tmux keeps its prefix on that one.
 
 ### Seamless navigation with Neovim
 
@@ -89,7 +96,8 @@ The matching keys on the Neovim side:
 | Move between boxes | `Ctrl + h/j/k/l` | `Ctrl + h/j/k/l` (same keys) |
 | Split vertically | `Prefix + \|` | `Space + \|` |
 | Split horizontally | `Prefix + -` | `Space + -` |
-| Resize | `Prefix + H/J/K/L` | `Space + H/J/K/L` |
+| Resize by 5 | `Prefix + h/j/k/l` | `Space + h/j/k/l` |
+| Resize by 1 | `Prefix + Ctrl + arrow` ⚠️ | `Ctrl + arrow` |
 
 ---
 
