@@ -22,7 +22,7 @@ Just one `tmux.conf` file.
 
 ## What it does
 
-- **The prefix stays `Ctrl+b`** — not moved to `Ctrl+a`, so it does not sit on the shell's "go to start of line"
+- **The prefix is `Ctrl+Space`** — a thumb press. Not `Ctrl+a`, which is the shell's own "go to start of line"
 - **`Ctrl + h/j/k/l` moves seamlessly with Neovim** — one set of keys for both tmux panes and nvim windows
 - **`Alt + h/j/k/l`** switches pane, **`Alt + 1..9`** jumps to a window — no prefix needed
 - **vim-style copy/paste**, including rectangular selection (`Ctrl+v`)
@@ -159,7 +159,7 @@ Based on [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw). What w
 
 | | The original | This one |
 |---|---|---|
-| Prefix | `Ctrl+a` | **`Ctrl+b`** (the default) |
+| Prefix | `Ctrl+a` | **`Ctrl+Space`** — a thumb press, and off the shell's `Ctrl+a` |
 | Colour variables | Leaks 13 variables into every shell's environment | Uses `%hidden`, **no leaking** |
 | The path on the status bar | `#(echo ... \| rev \| cut \| rev)` — 3 processes per redraw, breaks on a directory name containing `'` | tmux's native regex — **0 processes**, never breaks |
 | Clipboard | OSC 52 only | OSC 52 **plus** an auto-detected native command (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) — two layers side by side |

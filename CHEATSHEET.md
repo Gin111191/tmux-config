@@ -1,8 +1,12 @@
 # Cheatsheet
 
-Prefix = **`Ctrl+b`**
+Prefix = **`Ctrl+Space`**
 
-`Prefix + x` means: press `Ctrl+b`, **let go**, then press `x`.
+`Prefix + x` means: press `Ctrl+Space`, **let go**, then press `x`.
+
+⚠️ `Ctrl+Space` is Neovim's nvim-cmp "trigger completion by hand". Inside tmux that key now stops
+here and never reaches Neovim. cmp shows completions on its own as you type, so nothing is really
+lost — upstream's own comment says the key is not needed.
 While tmux is waiting for the next key, the box on the right of the status bar **turns purple**.
 
 Forgotten a key? Press `Prefix + ?` to see them all.
@@ -211,4 +215,4 @@ If none of those exist, the OSC 52 layer still works.
 
 - The **current** window shows the last 2 directory levels, e.g. `/home/you/repos/project/backend/src` → `backend/src`
 - The other windows show the name of the program running in them
-- The box on the right **turns purple** the moment you press `Ctrl+b`
+- The box on the right **turns purple** the moment you press `Ctrl+Space`
