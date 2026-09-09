@@ -5,6 +5,12 @@ Config tmux **không dùng plugin**, chạy được trên **macOS, Linux, WSL v
 Không cần TPM. Không cần Python. Không có tiến trình nền nào chạy định kỳ.
 Chỉ một file `tmux.conf` duy nhất.
 
+> **Take [nvim-config](https://github.com/Gin111191/nvim-config) with this one.** 24-bit
+> colour is arranged across both repos: this one decides whether to tell Neovim the
+> terminal has it, and nvim-config carries the 256-colour palette for when it does not.
+> Install only one and the colours break in a terminal without 24-bit colour, such as
+> macOS Terminal.app.
+
 ```
  1: (✓) backend/src   2: nvim                          zsh    lam-viec
  └─────────────────┘  └─────┘                          └───┘  └──────┘
