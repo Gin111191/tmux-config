@@ -1,9 +1,10 @@
 # tmux-config
 
-A **plugin-free** tmux config that runs on **macOS, Linux, WSL and MSYS2**.
+A tmux config that runs on **macOS, Linux, WSL and MSYS2**.
 
-No TPM. No Python. No background process running on a timer.
-Just one `tmux.conf` file.
+No TPM, no plugin manager, no Python — one `tmux.conf`, plus two plugins `install.sh`
+clones for [session persistence](#session-persistence). That pair is the only thing on
+a timer; delete the block at the end of `tmux.conf` and there is none.
 
 > **Take [nvim-config](https://github.com/Gin111191/nvim-config) with this one.** 24-bit
 > colour is arranged across both repos: this one decides whether to tell Neovim the
@@ -29,6 +30,8 @@ Just one `tmux.conf` file.
 - **A two-layer clipboard running side by side** — OSC 52 (through the terminal, works over SSH too) **and** the operating system's own command (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`), detected automatically
 - **The current window shows the last 2 directory levels** instead of just "zsh"
 - **The status bar changes colour when the prefix is pressed** — so you can see tmux waiting for a key
+- **Sessions survive a reboot** — windows, panes, directories and the programs in them,
+  including Claude Code with its conversation ([details](#session-persistence))
 - A **Tokyo Night Moon** theme
 
 Every key binding: [CHEATSHEET.md](CHEATSHEET.md)
@@ -145,39 +148,79 @@ Find the `window-status-current-format` line and edit the regex:
 
 ### Machine-local additions
 
-The last line of `tmux.conf` sources `~/.config/tmux/local.conf` if that file exists.
+`tmux.conf` sources `~/.config/tmux/local.conf` if that file exists, just before the
+persistence block, so it can override any `@option` the plugins read.
 Anything that belongs to one machine goes there: it sits outside this repo, so it is
 never committed and never lands on the other machines. Same idea as `local.zsh`.
 
 On a machine without the file the line is a no-op, so it is safe everywhere.
 
-#### Example — sessions that survive a reboot
+#### Example
 
-tmux dies with the machine. To get the windows, panes and directories back afterwards,
-clone two plugins by hand (no TPM involved) and switch them on from `local.conf`:
+Anything machine-specific: a different status bar, a key that only makes sense on one
+box, an `@option` you want to override before the plugins load.
 
-```sh
-git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect  ~/.config/tmux/plugins/tmux-resurrect
-git clone --depth 1 https://github.com/tmux-plugins/tmux-continuum ~/.config/tmux/plugins/tmux-continuum
-```
+---
+
+## Session persistence
+
+Windows, panes, working directories and the programs inside them come back after a
+reboot. This ships in `tmux.conf`; `install.sh` clones the two plugins it needs
+([resurrect](https://github.com/tmux-plugins/tmux-resurrect) and
+[continuum](https://github.com/tmux-plugins/tmux-continuum)) — no TPM.
+
+### What comes back
+
+| | |
+|---|---|
+| Layout, sizes, window and session names, active pane | exactly |
+| Each pane's working directory | exactly |
+| What was on screen | as text — a screenshot, not a live program |
+| Programs | **restarted, not resumed** — only whitelisted ones |
+
+The whitelist is resurrect's default (`vim nvim emacs man less tail top htop …`) plus
+one addition in `tmux.conf`:
 
 ```tmux
-# ~/.config/tmux/local.conf
-set -g @resurrect-capture-pane-contents 'on'   # also save what each pane was showing
-set -g @continuum-restore 'on'                 # restore on the first tmux after boot
-set -g @continuum-save-interval '5'            # minutes; the default 15 loses more
-
-# continuum's run-shell must stay LAST — it reads every @option set above
-run-shell ~/.config/tmux/plugins/tmux-resurrect/resurrect.tmux
-run-shell ~/.config/tmux/plugins/tmux-continuum/continuum.tmux
+set -g @resurrect-processes '"~claude->claude --continue"'
 ```
 
-Restoring the *programs* that were running is a separate opt-in
-(`@resurrect-processes`) and is left off: it re-runs whatever the pane held.
+`~` matches any command starting with `claude`; `->` rewrites what actually runs. The
+`--continue` reopens that directory's most recent conversation, so Claude Code comes
+back with its context instead of an empty session. Anything not on the list — `btop`,
+`lf`, a dev server — returns as a plain shell in the right directory.
 
-This is deliberately **not** in the repo. Continuum saves on a timer, which is the
-background process the top of this README says the config does without — and a machine
-that sleeps instead of shutting down never needs it, because the sessions never die.
+### Saving
+
+Automatic every 5 minutes (`@continuum-save-interval`), plus `prefix + Ctrl-s` to save
+on the spot. Worth pressing before a deliberate shutdown.
+
+Old saves are pruned by resurrect itself: it always keeps the newest 5 and deletes the
+rest once they pass 30 days (`@resurrect-delete-backup-after`). The directory stays in
+the tens of kilobytes.
+
+### Getting it back
+
+```sh
+tmux
+```
+
+`tmux attach` also works: with no server running it starts one, the config loads,
+continuum restores, and the attach then finds the session. That is a race — restore
+runs in the background — and if it ever loses you get `no sessions`. Run it again.
+
+### Turning it off
+
+A session you deliberately killed can come back, but only in one case: killing the
+**last** session exits the server, so no save runs and the file still lists it. Kill
+one session out of several and the next autosave drops it within 5 minutes.
+
+```sh
+touch ~/tmux_no_auto_restore     # next tmux starts clean; rm to re-enable
+```
+
+To remove the feature entirely, delete the persistence block at the end of
+`tmux.conf`. The plugins are then dead weight in `~/.config/tmux/plugins/`.
 
 ## Uninstalling
 
