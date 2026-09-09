@@ -90,19 +90,6 @@ else
     run cp "$SRC" "$DEST"
 fi
 
-# ---------- 5b. Session-persistence plugins ----------
-# tmux.conf loads these behind an if-shell, so a missing clone is a silent no-op
-# and sessions just won't survive a reboot. Clone them here instead.
-PLUGINS="$HOME/.config/tmux/plugins"
-for repo in tmux-resurrect tmux-continuum; do
-    if [ -d "$PLUGINS/$repo" ]; then
-        say "Already there    : $PLUGINS/$repo"
-    else
-        say "Cloning          : $repo"
-        run git clone --depth 1 "https://github.com/tmux-plugins/$repo" "$PLUGINS/$repo"
-    fi
-done
-
 # ---------- 6. Reload if tmux is already running ----------
 if [ "$DRY" -eq 0 ] && tmux list-sessions >/dev/null 2>&1; then
     tmux source-file "$DEST" 2>/dev/null && say "Reloaded the config into the running tmux server."
