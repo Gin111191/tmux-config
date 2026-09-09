@@ -143,6 +143,42 @@ Find the `window-status-current-format` line and edit the regex:
 
 ---
 
+### Machine-local additions
+
+The last line of `tmux.conf` sources `~/.config/tmux/local.conf` if that file exists.
+Anything that belongs to one machine goes there: it sits outside this repo, so it is
+never committed and never lands on the other machines. Same idea as `local.zsh`.
+
+On a machine without the file the line is a no-op, so it is safe everywhere.
+
+#### Example — sessions that survive a reboot
+
+tmux dies with the machine. To get the windows, panes and directories back afterwards,
+clone two plugins by hand (no TPM involved) and switch them on from `local.conf`:
+
+```sh
+git clone --depth 1 https://github.com/tmux-plugins/tmux-resurrect  ~/.config/tmux/plugins/tmux-resurrect
+git clone --depth 1 https://github.com/tmux-plugins/tmux-continuum ~/.config/tmux/plugins/tmux-continuum
+```
+
+```tmux
+# ~/.config/tmux/local.conf
+set -g @resurrect-capture-pane-contents 'on'   # also save what each pane was showing
+set -g @continuum-restore 'on'                 # restore on the first tmux after boot
+set -g @continuum-save-interval '5'            # minutes; the default 15 loses more
+
+# continuum's run-shell must stay LAST — it reads every @option set above
+run-shell ~/.config/tmux/plugins/tmux-resurrect/resurrect.tmux
+run-shell ~/.config/tmux/plugins/tmux-continuum/continuum.tmux
+```
+
+Restoring the *programs* that were running is a separate opt-in
+(`@resurrect-processes`) and is left off: it re-runs whatever the pane held.
+
+This is deliberately **not** in the repo. Continuum saves on a timer, which is the
+background process the top of this README says the config does without — and a machine
+that sleeps instead of shutting down never needs it, because the sessions never die.
+
 ## Uninstalling
 
 ```sh
