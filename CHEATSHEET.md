@@ -2,204 +2,205 @@
 
 Prefix = **`Ctrl+b`**
 
-`Prefix + x` nghĩa là: bấm `Ctrl+b`, **thả tay ra**, rồi bấm `x`.
-Khi tmux đang chờ phím tiếp theo, ô bên phải thanh status **đổi sang màu tím**.
+`Prefix + x` means: press `Ctrl+b`, **let go**, then press `x`.
+While tmux is waiting for the next key, the box on the right of the status bar **turns purple**.
 
-Quên phím? Bấm `Prefix + ?` để xem toàn bộ.
+Forgotten a key? Press `Prefix + ?` to see them all.
 
 ---
 
-## Session
+## Sessions
 
-| Lệnh / phím | Việc |
+| Command / key | What it does |
 |---|---|
-| `tmux` | Mở session mới |
-| `tmux new -s ten` | Mở session đặt tên |
-| `tmux ls` | Liệt kê session |
-| `tmux attach` / `tmux a` | Vào lại session gần nhất |
-| `tmux attach -t ten` | Vào session cụ thể |
-| `tmux kill-session -t ten` | Xoá một session |
-| `tmux kill-server` | Xoá **tất cả** session |
-| `Prefix + d` | Thoát ra, session vẫn chạy nền |
-| `Prefix + s` | Danh sách session để chọn |
-| `Prefix + $` | Đổi tên session |
-| `Prefix + (` / `)` | Session trước / sau |
+| `tmux` | Start a new session |
+| `tmux new -s name` | Start a named session |
+| `tmux ls` | List the sessions |
+| `tmux attach` / `tmux a` | Go back into the most recent session |
+| `tmux attach -t name` | Go into a particular session |
+| `tmux kill-session -t name` | Delete one session |
+| `tmux kill-server` | Delete **all** sessions |
+| `Prefix + d` | Detach; the session keeps running in the background |
+| `Prefix + s` | List the sessions to pick from |
+| `Prefix + $` | Rename the session |
+| `Prefix + (` / `)` | Previous / next session |
 
-> `detach-on-destroy off` đang bật: đóng session cuối cùng sẽ nhảy sang session khác thay vì văng hẳn khỏi tmux.
+> `detach-on-destroy off` is on: closing the last session jumps to another session instead of throwing you out of tmux entirely.
 
-## Cửa sổ (window)
+## Windows
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `Prefix + c` | Cửa sổ mới, giữ nguyên thư mục hiện tại |
-| **`Alt + 1`** … **`Alt + 9`** | Nhảy thẳng tới cửa sổ 1–9 — **không cần prefix** |
-| **`Shift + ←` / `Shift + →`** | Cửa sổ trước / sau — **không cần prefix** |
-| `Prefix + Ctrl+Shift + ←` / `→` | **Đổi vị trí** cửa sổ hiện tại (cần prefix) |
-| `Prefix + ,` | Đổi tên cửa sổ |
-| `Prefix + w` | Danh sách cửa sổ |
-| `Prefix + &` | Đóng cửa sổ |
-| `Prefix + f` | Tìm cửa sổ theo nội dung |
+| `Prefix + c` | New window, keeping the current directory |
+| **`Alt + 1`** … **`Alt + 9`** | Jump straight to window 1–9 — **no prefix needed** |
+| **`Shift + ←` / `Shift + →`** | Previous / next window — **no prefix needed** |
+| `Prefix + Ctrl+Shift + ←` / `→` | **Move** the current window in the list (prefix needed) |
+| `Prefix + ,` | Rename the window |
+| `Prefix + w` | List the windows |
+| `Prefix + &` | Close the window |
+| `Prefix + f` | Find a window by its content |
 
-## Pane
+## Panes
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `Prefix + \|` | Chia **dọc** (trái / phải) |
-| `Prefix + -` | Chia **ngang** (trên / dưới) |
-| **`Ctrl + h/j/k/l`** | **Chuyển pane — và xuyên luôn sang cửa sổ Neovim** (xem mục dưới) |
-| `Alt + h/j/k/l` | Chuyển pane — không cần prefix |
-| `Alt + ←/↓/↑/→` | Chuyển pane — không cần prefix |
-| `Prefix + h/j/k/l` | Chuyển pane (có prefix) |
-| `Prefix + H/J/K/L` | Đổi kích thước, bước 5 ô |
-| `Prefix + Ctrl+←/↓/↑/→` | Đổi kích thước, bước 1 ô |
-| `Prefix + Ctrl+l` | **Xoá màn hình** (vì `Ctrl+l` đã dùng để chuyển pane) |
-| **`Prefix + m`** | **Phóng to / thu nhỏ** pane |
-| `Prefix + x` | Đóng pane |
-| `Prefix + space` | Đổi kiểu bố cục |
-| `Prefix + {` / `}` | Đổi chỗ pane |
-| `Prefix + q` | Hiện số thứ tự pane (bấm số để nhảy) |
-| `Prefix + !` | Tách pane thành cửa sổ riêng |
-| `Prefix + z` | Zoom (phím gốc của tmux, vẫn dùng được) |
+| `Prefix + \|` | Split **vertically** (left / right) |
+| `Prefix + -` | Split **horizontally** (top / bottom) |
+| **`Ctrl + h/j/k/l`** | **Switch pane — and straight on into a Neovim window** (see below) |
+| `Alt + h/j/k/l` | Switch pane — no prefix needed |
+| `Alt + ←/↓/↑/→` | Switch pane — no prefix needed |
+| `Prefix + h/j/k/l` | Switch pane (with the prefix) |
+| `Prefix + H/J/K/L` | Resize, 5 cells at a time |
+| `Prefix + Ctrl+←/↓/↑/→` | Resize, 1 cell at a time |
+| `Prefix + Ctrl+l` | **Clear the screen** (because `Ctrl+l` is taken for switching pane) |
+| **`Prefix + m`** | **Zoom** the pane in / out |
+| `Prefix + x` | Close the pane |
+| `Prefix + space` | Cycle the layout |
+| `Prefix + {` / `}` | Swap panes around |
+| `Prefix + q` | Show the pane numbers (press a number to jump) |
+| `Prefix + !` | Break the pane out into its own window |
+| `Prefix + z` | Zoom (tmux's own key, still works) |
 
-Kéo viền pane bằng chuột cũng đổi kích thước được.
+Dragging a pane border with the mouse resizes it too.
 
-### Điều hướng liền mạch với Neovim
+### Seamless navigation with Neovim
 
-`Ctrl + h/j/k/l` nhảy sang ô bên cạnh, **không phân biệt** đó là pane tmux hay cửa sổ
-Neovim. Đang ở cửa sổ nvim ngoài cùng bên trái mà bấm `Ctrl+h` thì nhảy thẳng sang
-pane tmux bên cạnh — một bộ phím cho cả hai.
+`Ctrl + h/j/k/l` jumps to the next box along, **with no distinction** between a tmux pane and a
+Neovim window. Sitting in the leftmost nvim window and pressing `Ctrl+h` jumps straight into the
+tmux pane beside it — one set of keys for both.
 
-Cần cả hai phía mới chạy:
+Both sides are needed for it to work:
 
-| Phía | Cần gì |
+| Side | What it needs |
 |---|---|
-| Neovim | plugin `christoomey/vim-tmux-navigator` — có sẵn trong [nvim-config](https://github.com/Gin111191/nvim-config) |
-| tmux | mục "Điều hướng liền mạch với Neovim" trong `tmux.conf` |
+| Neovim | the `christoomey/vim-tmux-navigator` plugin — already in [nvim-config](https://github.com/Gin111191/nvim-config) |
+| tmux | the "Seamless navigation with Neovim" section in `tmux.conf` |
 
-Cách hoạt động: tmux soi tiến trình đang chạy trong pane. Là `vim`/`nvim` thì **gửi phím
-vào** cho nó tự xử lý; không phải thì tmux tự chuyển pane.
+How it works: tmux inspects the process running in the pane. If it is `vim`/`nvim` it **sends the
+key on** and lets it handle it; if not, tmux switches pane itself.
 
-> **Đánh đổi:** `Ctrl+l` vốn là "xoá màn hình" của shell, giờ dùng để chuyển pane.
-> Dùng `Prefix + Ctrl+l` để xoá màn hình.
+> **The trade-off:** `Ctrl+l` is normally the shell's "clear the screen", and is now used to switch
+> pane. Use `Prefix + Ctrl+l` to clear the screen.
 
-Bảng phím tương ứng bên Neovim:
+The matching keys on the Neovim side:
 
-| Động tác | tmux | Neovim |
+| Action | tmux | Neovim |
 |---|---|---|
-| Chuyển ô | `Ctrl + h/j/k/l` | `Ctrl + h/j/k/l` (cùng phím) |
-| Chia dọc | `Prefix + \|` | `Space + \|` |
-| Chia ngang | `Prefix + -` | `Space + -` |
-| Đổi kích thước | `Prefix + H/J/K/L` | `Space + H/J/K/L` |
+| Move between boxes | `Ctrl + h/j/k/l` | `Ctrl + h/j/k/l` (same keys) |
+| Split vertically | `Prefix + \|` | `Space + \|` |
+| Split horizontally | `Prefix + -` | `Space + -` |
+| Resize | `Prefix + H/J/K/L` | `Space + H/J/K/L` |
 
 ---
 
-## Copy mode — vim motion
+## Copy mode — vim motions
 
-Vào bằng **`Prefix + [`**. Thoát bằng **`q`**.
+Enter with **`Prefix + [`**. Leave with **`q`**.
 
-Cuộn bằng chuột cũng tự vào copy mode.
+Scrolling with the mouse enters copy mode too.
 
-### Di chuyển
+### Moving around
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `h` `j` `k` `l` | Trái / xuống / lên / phải |
-| `w` `b` `e` | Tới / lùi một từ, cuối từ |
-| `W` `B` `E` | Như trên, nhưng tính theo khoảng trắng |
-| `0` | Đầu dòng |
-| `^` | Ký tự đầu tiên khác khoảng trắng |
-| `$` | Cuối dòng |
-| `{` `}` | Đoạn trước / đoạn sau |
-| `g` | Lên đầu lịch sử cuộn |
-| `G` | Xuống cuối lịch sử |
-| `H` `M` `L` | Đầu / giữa / cuối màn hình |
-| `Ctrl+u` `Ctrl+d` | Nửa trang lên / xuống |
-| `Ctrl+b` `Ctrl+f` | Một trang lên / xuống |
+| `h` `j` `k` `l` | Left / down / up / right |
+| `w` `b` `e` | Forward a word, back a word, end of word |
+| `W` `B` `E` | The same, but counted by whitespace |
+| `0` | Start of the line |
+| `^` | First non-whitespace character |
+| `$` | End of the line |
+| `{` `}` | Previous / next paragraph |
+| `g` | Top of the scrollback |
+| `G` | Bottom of the scrollback |
+| `H` `M` `L` | Top / middle / bottom of the screen |
+| `Ctrl+u` `Ctrl+d` | Half a page up / down |
+| `Ctrl+b` `Ctrl+f` | A full page up / down |
 
-### Nhảy trong dòng
+### Jumping within a line
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `f<ký tự>` | Nhảy tới ký tự đó |
-| `F<ký tự>` | Nhảy ngược lại tới ký tự đó |
-| `t<ký tự>` | Nhảy tới **ngay trước** ký tự đó |
-| `T<ký tự>` | Nhảy ngược tới ngay sau ký tự đó |
-| `;` `,` | Lặp lại lần nhảy vừa rồi, xuôi / ngược |
+| `f<char>` | Jump to that character |
+| `F<char>` | Jump backwards to that character |
+| `t<char>` | Jump to **just before** that character |
+| `T<char>` | Jump backwards to just after that character |
+| `;` `,` | Repeat the last jump, forwards / backwards |
 
-### Tìm kiếm
+### Searching
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `/` | Tìm xuôi |
-| `?` | Tìm ngược |
-| `n` `N` | Kết quả tiếp / trước |
+| `/` | Search forwards |
+| `?` | Search backwards |
+| `n` `N` | Next / previous match |
 
-### Chọn và copy
+### Selecting and copying
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `v` | Bắt đầu bôi đen |
-| `V` | Chọn **cả dòng** |
-| **`Ctrl+v`** | Bôi **khối chữ nhật** |
-| `o` | Nhảy sang đầu bên kia của vùng chọn |
-| **`y`** | Copy rồi thoát |
-| `q` | Thoát, không copy |
-| `Prefix + P` | **Dán** |
+| `v` | Start selecting |
+| `V` | Select **whole lines** |
+| **`Ctrl+v`** | Select a **rectangular block** |
+| `o` | Jump to the other end of the selection |
+| **`y`** | Copy and leave |
+| `q` | Leave without copying |
+| `Prefix + P` | **Paste** |
 
-Kéo chuột để bôi đen — thả tay ra **không** làm mất vùng đã chọn (mặc định tmux làm mất).
+Drag with the mouse to select — letting go does **not** lose the selection (tmux loses it by default).
 
-### Khác vim ở chỗ nào
+### How it differs from vim
 
-Copy mode **chỉ để đọc và copy**. Không có `d`, `c`, `p`, không có chế độ Insert, không sửa được nội dung.
+Copy mode is **for reading and copying only**. There is no `d`, `c` or `p`, no Insert mode, and no
+way to change the content.
 
 ---
 
-## Clipboard hoạt động ra sao
+## How the clipboard works
 
-Bấm `y` kích hoạt **hai lớp cùng lúc**:
+Pressing `y` sets off **two layers at once**:
 
 ```
-   y  ─┬─►  buffer tmux  ──►  OSC 52  ──►  terminal  ──►  clipboard hệ thống
-       │                      (chạy được cả khi SSH sang máy khác)
+   y  ─┬─►  tmux buffer  ──►  OSC 52  ──►  terminal  ──►  system clipboard
+       │                      (works even over SSH to another machine)
        │
-       └─►  ống dẫn  ──►  pbcopy / wl-copy / xclip / clip.exe
-                           (đường trực tiếp, không cần terminal hỗ trợ)
+       └─►  pipe  ──►  pbcopy / wl-copy / xclip / clip.exe
+                       (the direct route, needs no terminal support)
 ```
 
-Lệnh ở lớp 2 được chọn tự động theo máy:
+The layer-2 command is chosen automatically per machine:
 
-| Hệ điều hành | Lệnh |
+| Operating system | Command |
 |---|---|
 | macOS | `pbcopy` |
 | Linux — Wayland | `wl-copy` |
 | Linux — X11 | `xclip` |
-| WSL | `clip.exe` (đẩy sang clipboard Windows) |
+| WSL | `clip.exe` (pushes to the Windows clipboard) |
 
-Không có lệnh nào trong số đó thì lớp OSC 52 vẫn chạy.
+If none of those exist, the OSC 52 layer still works.
 
 ---
 
-## Khác
+## Other
 
-| Phím | Việc |
+| Key | What it does |
 |---|---|
-| `Prefix + r` | Nạp lại config |
-| `Prefix + ?` | **Xem toàn bộ phím tắt** |
-| `Prefix + :` | Dòng lệnh tmux |
-| `Prefix + t` | Đồng hồ |
-| `Prefix + ~` | Xem log thông báo của tmux |
+| `Prefix + r` | Reload the config |
+| `Prefix + ?` | **List every key binding** |
+| `Prefix + :` | The tmux command line |
+| `Prefix + t` | A clock |
+| `Prefix + ~` | Show tmux's own message log |
 
 ---
 
-## Đọc thanh status
+## Reading the status bar
 
 ```
  1: (✓) backend/src   2: nvim                          zsh    lam-viec
  └─────────────────┘  └─────┘                          └───┘  └──────┘
-  cửa sổ đang mở:      cửa sổ khác:                    tên     tên
-  2 cấp thư mục cuối   tên chương trình                cửa sổ  session
+  current window:      other windows:                  window  session
+  last 2 dir levels    the program name                name    name
 ```
 
-- Cửa sổ **đang mở** hiện 2 cấp thư mục cuối, ví dụ `/home/ban/repos/du-an/backend/src` → `backend/src`
-- Các cửa sổ khác hiện tên chương trình đang chạy
-- Ô bên phải **đổi sang màu tím** khi bạn vừa bấm `Ctrl+b`
+- The **current** window shows the last 2 directory levels, e.g. `/home/you/repos/project/backend/src` → `backend/src`
+- The other windows show the name of the program running in them
+- The box on the right **turns purple** the moment you press `Ctrl+b`

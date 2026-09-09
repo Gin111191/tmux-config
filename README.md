@@ -1,9 +1,9 @@
 # tmux-config
 
-Config tmux **không dùng plugin**, chạy được trên **macOS, Linux, WSL và MSYS2**.
+A **plugin-free** tmux config that runs on **macOS, Linux, WSL and MSYS2**.
 
-Không cần TPM. Không cần Python. Không có tiến trình nền nào chạy định kỳ.
-Chỉ một file `tmux.conf` duy nhất.
+No TPM. No Python. No background process running on a timer.
+Just one `tmux.conf` file.
 
 > **Take [nvim-config](https://github.com/Gin111191/nvim-config) with this one.** 24-bit
 > colour is arranged across both repos: this one decides whether to tell Neovim the
@@ -14,28 +14,28 @@ Chỉ một file `tmux.conf` duy nhất.
 ```
  1: (✓) backend/src   2: nvim                          zsh    lam-viec
  └─────────────────┘  └─────┘                          └───┘  └──────┘
-  cửa sổ đang mở:      cửa sổ khác:                    tên     tên
-  2 cấp thư mục cuối   tên chương trình                cửa sổ  session
+  current window:      other windows:                  window  session
+  last 2 dir levels    the program name                name    name
 ```
 
 ---
 
-## Có gì
+## What it does
 
-- **Prefix vẫn là `Ctrl+b`** — không đổi sang `Ctrl+a` để khỏi đè lên phím "về đầu dòng" của shell
-- **`Ctrl + h/j/k/l` chuyển ô liền mạch với Neovim** — cùng một bộ phím cho pane tmux và cửa sổ nvim
-- **`Alt + h/j/k/l`** chuyển pane, **`Alt + 1..9`** nhảy cửa sổ — không cần bấm prefix
-- **Copy/paste kiểu vim**, có cả bôi khối chữ nhật (`Ctrl+v`)
-- **Clipboard hai lớp chạy song song** — OSC 52 (qua terminal, dùng được cả khi SSH) **và** lệnh native của hệ điều hành (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) tự nhận diện
-- **Cửa sổ đang mở hiện 2 cấp thư mục cuối** thay vì chỉ "zsh"
-- **Thanh status đổi màu khi bấm prefix** — biết ngay tmux đang chờ phím
-- Giao diện **Tokyo Night Moon**
+- **The prefix stays `Ctrl+b`** — not moved to `Ctrl+a`, so it does not sit on the shell's "go to start of line"
+- **`Ctrl + h/j/k/l` moves seamlessly with Neovim** — one set of keys for both tmux panes and nvim windows
+- **`Alt + h/j/k/l`** switches pane, **`Alt + 1..9`** jumps to a window — no prefix needed
+- **vim-style copy/paste**, including rectangular selection (`Ctrl+v`)
+- **A two-layer clipboard running side by side** — OSC 52 (through the terminal, works over SSH too) **and** the operating system's own command (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`), detected automatically
+- **The current window shows the last 2 directory levels** instead of just "zsh"
+- **The status bar changes colour when the prefix is pressed** — so you can see tmux waiting for a key
+- A **Tokyo Night Moon** theme
 
-Xem toàn bộ phím tắt: [CHEATSHEET.md](CHEATSHEET.md)
+Every key binding: [CHEATSHEET.md](CHEATSHEET.md)
 
 ---
 
-## Cài đặt
+## Install
 
 ### macOS · Linux · WSL
 
@@ -45,15 +45,15 @@ cd ~/.local/share/tmux-config
 ./install.sh
 ```
 
-Script sẽ tự: nhận diện hệ điều hành → kiểm tra tmux → **sao lưu config cũ** → tạo symlink tới `~/.config/tmux/tmux.conf` → nạp lại nếu tmux đang chạy.
+The script does it all: identify the operating system → check tmux is installed → **back up the old config** → symlink it to `~/.config/tmux/tmux.conf` → reload if tmux is already running.
 
-Muốn xem trước mà không thay đổi gì:
+To see what it would do without changing anything:
 
 ```sh
 ./install.sh --dry-run
 ```
 
-Muốn copy file thay vì symlink (ví dụ khi cài trên server rồi xoá thư mục repo):
+To copy the file instead of symlinking (for instance installing on a server and then deleting the repo folder):
 
 ```sh
 ./install.sh --copy
@@ -61,17 +61,17 @@ Muốn copy file thay vì symlink (ví dụ khi cài trên server rồi xoá th�
 
 ### Windows
 
-**tmux không chạy trực tiếp trên Windows.** Có 2 cách:
+**tmux does not run on Windows directly.** There are 2 ways round it:
 
-**Cách 1 — WSL (khuyến nghị).** Mở PowerShell:
+**Option 1 — WSL (recommended).** Open PowerShell:
 
 ```powershell
 wsl --install -d Ubuntu
 ```
 
-Rồi vào Ubuntu và làm y như phần Linux ở trên.
+Then go into Ubuntu and follow the Linux section above exactly.
 
-**Cách 2 — MSYS2.** Cài [MSYS2](https://www.msys2.org/), mở "MSYS2 UCRT64":
+**Option 2 — MSYS2.** Install [MSYS2](https://www.msys2.org/) and open "MSYS2 UCRT64":
 
 ```sh
 pacman -S tmux git
@@ -79,101 +79,101 @@ git clone https://github.com/Gin111191/tmux-config ~/tmux-config
 cd ~/tmux-config && ./install.sh
 ```
 
-> Git Bash **không** có sẵn tmux. Cygwin thì được (chọn gói `tmux` lúc cài).
+> Git Bash does **not** ship tmux. Cygwin does (pick the `tmux` package during setup).
 
-### Cài thủ công
+### Installing by hand
 
 ```sh
 mkdir -p ~/.config/tmux
 cp tmux.conf ~/.config/tmux/tmux.conf
 ```
 
-Hoặc dùng đường dẫn cũ `~/.tmux.conf` — config nhận cả hai.
+Or use the old `~/.tmux.conf` path — the config accepts either.
 
-### Dùng thử không cài
+### Trying it without installing
 
 ```sh
-tmux -f /duong/dan/toi/tmux.conf
+tmux -f /path/to/tmux.conf
 ```
 
 ---
 
-## Yêu cầu
+## Requirements
 
-| Thứ | Bắt buộc? | Ghi chú |
+| What | Required? | Notes |
 |---|---|---|
-| **tmux ≥ 3.0** | Có | Đã kiểm thử trên 3.6. Cú pháp `%hidden` cần tmux ≥ 3.0 |
-| **Nerd Font** | Nên có | Thanh status dùng vài icon. Không có font thì hiện ô vuông — xem mục Tuỳ chỉnh để bỏ |
-| Terminal hỗ trợ true color | Nên có | WezTerm, kitty, Alacritty, Ghostty, iTerm2, Windows Terminal |
+| **tmux ≥ 3.0** | Yes | Tested on 3.6. The `%hidden` syntax needs tmux ≥ 3.0 |
+| **A Nerd Font** | Recommended | The status bar uses a few icons. Without the font they show as empty boxes — see Customising to remove them |
+| A true-colour terminal | Recommended | WezTerm, kitty, Alacritty, Ghostty, iTerm2, Windows Terminal |
 
-Cài Nerd Font: [nerdfonts.com](https://www.nerdfonts.com/) — ví dụ JetBrainsMono Nerd Font.
+To install a Nerd Font: [nerdfonts.com](https://www.nerdfonts.com/) — JetBrainsMono Nerd Font, for example.
 
 ---
 
-## Tuỳ chỉnh
+## Customising
 
-### Đổi màu
+### Changing the colours
 
-Sửa 13 dòng `%hidden thm_*` ở cuối `tmux.conf`. Dán bảng màu khác vào là xong.
+Edit the 13 `%hidden thm_*` lines at the bottom of `tmux.conf`. Paste in a different palette and you are done.
 
-### Bỏ icon Nerd Font
+### Dropping the Nerd Font icons
 
-Nếu thanh status hiện ô vuông, mở `tmux.conf`, tìm dòng `set -g status-right` và xoá 3 ký tự icon (``, ``, ``).
+If the status bar shows empty boxes, open `tmux.conf`, find the `set -g status-right` line and delete the 3 icon characters (``, ``, ``).
 
-### Đổi prefix sang `Ctrl+a`
+### Changing the prefix to `Ctrl+a`
 
-Bỏ chú thích 3 dòng trong mục "Prefix" của `tmux.conf`.
+Uncomment the 3 lines in the "Prefix" section of `tmux.conf`.
 
-### Đổi số cấp thư mục hiển thị
+### Changing how many directory levels are shown
 
-Tìm dòng `window-status-current-format`, sửa regex:
+Find the `window-status-current-format` line and edit the regex:
 
 ```tmux
-# 2 cấp (mặc định)
+# 2 levels (the default)
 #{s|^.*/([^/]+/[^/]+)$|\\1|:pane_current_path}
 
-# 1 cấp
+# 1 level
 #{b:pane_current_path}
 
-# 3 cấp
+# 3 levels
 #{s|^.*/([^/]+/[^/]+/[^/]+)$|\\1|:pane_current_path}
 ```
 
-> Phải viết `\\1` (**hai** gạch chéo). Viết một gạch thì tmux báo `invalid octal escape`.
+> It must be written `\\1` (**two** backslashes). With one, tmux errors with `invalid octal escape`.
 
 ---
 
-## Gỡ cài đặt
+## Uninstalling
 
 ```sh
 ./uninstall.sh
 ```
 
-Script gỡ symlink và khôi phục bản sao lưu gần nhất.
+The script removes the symlink and restores the most recent backup.
 
 ---
 
-## Nguồn gốc & khác biệt
+## Origin & differences
 
-Dựa trên [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw). Những chỗ đã đổi:
+Based on [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw). What was changed:
 
-| | Bản gốc | Bản này |
+| | The original | This one |
 |---|---|---|
-| Prefix | `Ctrl+a` | **`Ctrl+b`** (mặc định) |
-| Biến màu | Rò rỉ 13 biến vào môi trường mọi shell | Dùng `%hidden`, **không rò rỉ** |
-| Đường dẫn trên status | `#(echo ... \| rev \| cut \| rev)` — 3 tiến trình mỗi lần vẽ, vỡ khi tên thư mục có dấu `'` | Regex native tmux — **0 tiến trình**, không vỡ |
-| Clipboard | Chỉ OSC 52 | OSC 52 **cộng thêm** lệnh native tự nhận diện (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) — hai lớp chạy song song |
-| Đường dẫn reload | Cứng `$HOME/.config/tmux/tmux.conf` | Thử cả `~/.config/tmux/` và `~/.tmux.conf` |
-| `default-shell` | — | Không đặt, để tmux tự dùng `$SHELL` (tránh hỏng khi zsh ở `/usr/bin`) |
-| `escape-time` | 10 (mặc định) | **0** — bỏ trễ phím ESC trong Neovim |
-| `history-limit` | 2000 (mặc định) | **100000** |
-| `focus-events` | off | **on** — Neovim tự nạp lại file |
-| `allow-passthrough` | off | **on** — xem được ảnh trong terminal |
-| `detach-on-destroy` | on | **off** — đóng session cuối không văng khỏi tmux |
-| Cài đặt | Tự symlink bằng tay | `install.sh` đa nền tảng, có sao lưu |
+| Prefix | `Ctrl+a` | **`Ctrl+b`** (the default) |
+| Colour variables | Leaks 13 variables into every shell's environment | Uses `%hidden`, **no leaking** |
+| The path on the status bar | `#(echo ... \| rev \| cut \| rev)` — 3 processes per redraw, breaks on a directory name containing `'` | tmux's native regex — **0 processes**, never breaks |
+| Clipboard | OSC 52 only | OSC 52 **plus** an auto-detected native command (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`) — two layers side by side |
+| Reload path | Hard-coded `$HOME/.config/tmux/tmux.conf` | Tries both `~/.config/tmux/` and `~/.tmux.conf` |
+| `default-shell` | — | Not set, so tmux uses `$SHELL` (avoids breaking when zsh lives in `/usr/bin`) |
+| `escape-time` | 10 (the default) | **0** — removes the ESC key delay in Neovim |
+| `history-limit` | 2000 (the default) | **100000** |
+| `focus-events` | off | **on** — Neovim reloads files by itself |
+| `allow-passthrough` | off | **on** — images can be shown in the terminal |
+| `detach-on-destroy` | on | **off** — closing the last session does not throw you out of tmux |
+| Installing | Symlink it by hand | A cross-platform `install.sh`, with backups |
 
-## Ghi công
+## Credits
 
-Cấu trúc và bảng màu bắt nguồn từ [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw)
-(repo gốc không kèm file giấy phép, nên đây chỉ là ghi công, không phải tái cấp phép).
-Bảng màu Tokyo Night Moon thuộc về [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim).
+The structure and the palette come from [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw)
+(the original repo ships no licence file, so this is credit, not a re-licence).
+The Tokyo Night Moon palette belongs to [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim).
