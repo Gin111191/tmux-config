@@ -29,7 +29,7 @@ Just one `tmux.conf` file.
 - **A two-layer clipboard running side by side** — OSC 52 (through the terminal, works over SSH too) **and** the operating system's own command (`pbcopy`/`wl-copy`/`xclip`/`clip.exe`), detected automatically
 - **The current window shows the last 2 directory levels** instead of just "zsh"
 - **The status bar changes colour when the prefix is pressed** — so you can see tmux waiting for a key
-- A **Tokyo Night Moon** theme
+- A **Dusk-Navy** theme, shared verbatim with WezTerm, Neovim and the starship prompt
 
 Every key binding: [CHEATSHEET.md](CHEATSHEET.md)
 
@@ -114,7 +114,18 @@ To install a Nerd Font: [nerdfonts.com](https://www.nerdfonts.com/) — JetBrain
 
 ### Changing the colours
 
-Edit the 13 `%hidden thm_*` lines at the bottom of `tmux.conf`. Paste in a different palette and you are done.
+Edit the 6 `%hidden thm_*` lines in the "Appearance" section of `tmux.conf`. Paste in a
+different palette and you are done.
+
+The six values are not chosen here — they are the base16 slots from
+[nvim-config](https://github.com/Gin111191/nvim-config)'s `lua/plugins/colortheme.lua`,
+which in turn copies `CUSTOM_SCHEMES["Dusk-Navy"]` from
+[wezterm-config](https://github.com/Gin111191/wezterm-config). **`wezterm.lua` is the one
+source of truth**: change a colour there and tmux and Neovim both have to be updated to
+match, or the three drift apart.
+
+Every pair that carries text clears WCAG AA (4.5); the numbers are recorded in a comment
+beside the palette. Keep that true if you repaint it.
 
 ### Dropping the Nerd Font icons
 
@@ -191,4 +202,5 @@ Based on [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw). What w
 
 The structure and the palette come from [tonybanters/tmux-btw](https://github.com/tonybanters/tmux-btw)
 (the original repo ships no licence file, so this is credit, not a re-licence).
-The Tokyo Night Moon palette belongs to [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim).
+The Dusk-Navy palette is Gin's own, ported from a Terminal.app profile — see
+[wezterm-config](https://github.com/Gin111191/wezterm-config), which holds the canonical values.
