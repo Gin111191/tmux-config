@@ -7,6 +7,9 @@ While tmux is waiting for the next key, the box on the right of the status bar *
 
 Forgotten a key? Press `Prefix + ?` to see them all.
 
+Shell keys (fzf, rg, vi-mode) are in `~/.config/zsh/CHEATSHEET.md`, Neovim keys in
+`~/.config/nvim/CHEATSHEET.md`.
+
 ---
 
 ## Sessions
@@ -24,6 +27,7 @@ Forgotten a key? Press `Prefix + ?` to see them all.
 | `Prefix + s` | List the sessions to pick from |
 | `Prefix + $` | Rename the session |
 | `Prefix + (` / `)` | Previous / next session |
+| `Prefix + L` | Back to the session you were last in |
 
 > `detach-on-destroy off` is on: closing the last session jumps to another session instead of throwing you out of tmux entirely.
 
@@ -34,6 +38,8 @@ Forgotten a key? Press `Prefix + ?` to see them all.
 | `Prefix + c` | New window, keeping the current directory |
 | **`Alt + 1`** … **`Alt + 9`** | Jump straight to window 1–9 — **no prefix needed** |
 | **`Shift + ←` / `Shift + →`** | Previous / next window — **no prefix needed** |
+| `Prefix + 1` … `9` · `Prefix + p` / `n` | The same two moves, through the prefix |
+| `Prefix + .` | Give the window another number, moving it in the list |
 | `Prefix + Ctrl+Shift + ←` / `→` | **Move** the current window in the list (prefix needed) |
 | `Prefix + ,` | Rename the window |
 | `Prefix + w` | List the windows |
@@ -57,6 +63,7 @@ Forgotten a key? Press `Prefix + ?` to see them all.
 | `Prefix + space` | Cycle the layout |
 | `Prefix + {` / `}` | Swap panes around |
 | `Prefix + q` | Show the pane numbers (press a number to jump) |
+| `Prefix + o` | Next pane, in turn |
 | `Prefix + !` | Break the pane out into its own window |
 | `Prefix + z` | Zoom (tmux's own key, still works) |
 
@@ -103,7 +110,7 @@ The matching keys on the Neovim side:
 
 ## Copy mode — vim motions
 
-Enter with **`Prefix + [`**. Leave with **`q`**.
+Enter with **`Prefix + [`**, or `Prefix + PageUp`, which also scrolls up a page. Leave with **`q`**.
 
 Scrolling with the mouse enters copy mode too.
 
@@ -152,7 +159,8 @@ Scrolling with the mouse enters copy mode too.
 | `o` | Jump to the other end of the selection |
 | **`y`** | Copy and leave |
 | `q` | Leave without copying |
-| `Prefix + P` | **Paste** |
+| `Prefix + P` or `Prefix + ]` | **Paste** the last thing copied |
+| `Prefix + =` | Pick what to paste from **everything copied** so far |
 
 Drag with the mouse to select — letting go does **not** lose the selection (tmux loses it by default).
 
