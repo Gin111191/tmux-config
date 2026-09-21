@@ -64,7 +64,8 @@ Shell keys (fzf, rg, vi-mode) are in `~/.config/zsh/CHEATSHEET.md`, Neovim keys 
 | `Prefix + {` / `}` | Swap panes around |
 | `Prefix + q` | Show the pane numbers (press a number to jump) |
 | `Prefix + o` | Next pane, in turn |
-| `Prefix + !` | Break the pane out into its own window |
+| `Prefix + !` | Break the pane out into its own window — **asks for a name first** |
+| `Prefix + J` | **Join** the pane into an existing window — type the window number |
 | `Prefix + z` | Zoom (tmux's own key, still works) |
 
 Dragging a pane border with the mouse resizes it too.
@@ -76,6 +77,14 @@ session**.
 
 ⚠️ The 1-cell resize cannot match Neovim. Neovim uses a **bare** `Ctrl+arrow`; if tmux bound the
 bare key it would swallow it and Neovim would never see it. tmux keeps its prefix on that one.
+
+⚠️ **tmux 3.7 crashes the whole server on a nameless `break-pane`** (`Prefix + !` in stock tmux):
+SIGSEGV in `clean_name` ← `window_set_name` ← `cmd_break_pane_exec`, every session and pane dies.
+Fixed in 3.7a. This config's `Prefix + !` always passes a name, so it is safe either way, but
+upgrade anyway: `brew upgrade tmux`, then `tmux kill-server` and reopen (a running server keeps
+the old binary). `tmux -V` shows the client version; `tmux display-message -p '#{version}'`
+shows the running server's. A crash leaves a report in `~/Library/Logs/DiagnosticReports/tmux-*.ips`.
+A window with only one pane cannot be broken out at all — tmux says `can't break with only one pane`.
 
 ### Seamless navigation with Neovim
 
