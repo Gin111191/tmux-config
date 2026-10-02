@@ -37,8 +37,8 @@ Shell keys (fzf, rg, vi-mode) are in `~/.config/zsh/CHEATSHEET.md`, Neovim keys 
 |---|---|
 | `Prefix + c` | New window, keeping the current directory |
 | **`Alt + 1`** … **`Alt + 9`** | Jump straight to window 1–9 — **no prefix needed** |
-| **`Shift + ←` / `Shift + →`** | Previous / next window — **no prefix needed** |
-| `Prefix + 1` … `9` · `Prefix + p` / `n` | The same two moves, through the prefix |
+| **`Shift + ←` / `Shift + →`** | Previous / next window — **no prefix needed**. Skips Claude's `·claude:…` windows; pressed inside a Claude popup, it closes the popup and moves in the session underneath (`claude-window.sh`) |
+| `Prefix + 1` … `9` · `Prefix + p` / `n` | The same two moves, through the prefix — these **do** stop at the `·claude:…` windows |
 | `Prefix + .` | Give the window another number, moving it in the list |
 | `Prefix + Ctrl+Shift + ←` / `→` | **Move** the current window in the list (prefix needed) |
 | `Prefix + ,` | Rename the window |

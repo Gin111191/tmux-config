@@ -9,6 +9,7 @@ if [ -e "$DEST" ] || [ -L "$DEST" ]; then
 else
     echo "Nothing to remove at $DEST"
 fi
+rm -f "$(dirname "$DEST")/claude-window.sh"
 
 # Restore the newest backup (if there is one)
 for base in "$DEST" "$HOME/.tmux.conf"; do

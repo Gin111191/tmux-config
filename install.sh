@@ -89,6 +89,12 @@ else
     say "Copying          : $SRC -> $DEST"
     run cp "$SRC" "$DEST"
 fi
+# Shift+←/→ call this script; tmux.conf looks for it in its own folder
+if [ "$MODE" = symlink ]; then
+    run ln -sfn "$SRC_DIR/claude-window.sh" "$DEST_DIR/claude-window.sh"
+else
+    run cp "$SRC_DIR/claude-window.sh" "$DEST_DIR/claude-window.sh"
+fi
 
 # ---------- 6. Reload if tmux is already running ----------
 if [ "$DRY" -eq 0 ] && tmux list-sessions >/dev/null 2>&1; then
