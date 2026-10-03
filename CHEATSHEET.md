@@ -23,7 +23,7 @@ Shell keys (fzf, rg, vi-mode) are in `~/.config/zsh/CHEATSHEET.md`, Neovim keys 
 | `tmux attach -t name` | Go into a particular session |
 | `tmux kill-session -t name` | Delete one session |
 | `tmux kill-server` | Delete **all** sessions |
-| `Prefix + d` | Detach; the session keeps running in the background |
+| `Prefix + d` | Detach; the session keeps running in the background. Inside a Claude float it closes the float instead (same as `Shift + ↓`) |
 | `Prefix + s` | List the sessions to pick from |
 | `Prefix + $` | Rename the session |
 | `Prefix + (` / `)` | Previous / next session |
@@ -37,8 +37,10 @@ Shell keys (fzf, rg, vi-mode) are in `~/.config/zsh/CHEATSHEET.md`, Neovim keys 
 |---|---|
 | `Prefix + c` | New window, keeping the current directory |
 | **`Alt + 1`** … **`Alt + 9`** | Jump straight to window 1–9 — **no prefix needed** |
-| **`Shift + ←` / `Shift + →`** | Previous / next window — **no prefix needed**. Skips Claude's `·claude:…` windows; pressed inside a Claude popup, it closes the popup and moves in the session underneath (`claude-window.sh`) |
-| `Prefix + 1` … `9` · `Prefix + p` / `n` | The same two moves, through the prefix — these **do** stop at the `·claude:…` windows |
+| **`Shift + ←` / `Shift + →`** | Previous / next window — **no prefix needed**. Skips Claude's `·claude:…` windows, and the Claude float follows each window: it closes on a window whose float was closed and opens again, showing that window's own Claude, on one whose float was left open (below) |
+| **`Shift + ↑`** | **Open this window's Claude float** (nvim-config's `Space a c`) — the one it had; none yet: Neovim in the window starts one. Takes the key from every program (Neovim's own `Shift+↑` page-up is gone; `Ctrl+b` / `Ctrl+u` remain) |
+| **`Shift + ↓`** | Inside the float: **close it** (Claude keeps running). Anywhere else the key goes to the program as usual |
+| `Prefix + 1` … `9` · `Prefix + p` / `n` | The same two moves, through the prefix — these **do** stop at the `·claude:…` windows, and leave the float alone |
 | `Prefix + .` | Give the window another number, moving it in the list |
 | `Prefix + Ctrl+Shift + ←` / `→` | **Move** the current window in the list (prefix needed) |
 | `Prefix + ,` | Rename the window |
